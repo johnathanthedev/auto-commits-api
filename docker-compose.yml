@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  api:
+    container_name: auto-commits-api-container
+    build: .
+    ports:
+      - ${ROCKET_PORT}:${ROCKET_PORT}
+    env_file:
+      - .env
+    volumes:
+      - .:/auto-commits-api
+    restart: always
+    depends_on:
+      - db
+    networks:
+      - auto-commits-network
+  db:
+    container_name: db-container
+    image: postgres:latest
+    ports:
+      - 5432:5432
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_DB: ${POSTGRES_DB_NAME}
+      PG_DATA: /var/lib/postgresql/data
+    networks:
+      - auto-commits-network
+    restart: always
+
+networks:
+  auto-commits-network:
+    name: auto-commits-network
+    driver: bridge
+
+volumes:
+  auto-commits-api:
+  pg-data:
