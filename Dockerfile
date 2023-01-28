@@ -6,4 +6,6 @@ COPY . .
 
 EXPOSE ${ROCKET_PORT}
 
-CMD ["cargo", "run"]
+RUN cargo install cargo-watch
+
+CMD ["cargo", "watch", "-x", "run", "-w", "src"]
