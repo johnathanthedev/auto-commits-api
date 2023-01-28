@@ -6,3 +6,7 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+async-stream = "0.3.3"
+async-trait = "0.1.63"
+rocket = { version = "^0.5.0-rc.2", features = ["json"] }
+sea-orm ={ version = "0.10.7", features = [ "sqlx-postgres", "runtime-tokio-rustls", "macros" ] }
