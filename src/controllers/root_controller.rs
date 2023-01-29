@@ -9,6 +9,6 @@ pub struct TestMessage {
 #[get("/")]
 pub fn index() -> Json<TestMessage> {
     return Json(TestMessage {
-        message: String::from("Welcome to the Auto Commits API test -- test this build"),
+        message: String::from("Welcome to the Auto Commits API"),
     });
 }
