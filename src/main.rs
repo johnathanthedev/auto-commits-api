@@ -7,12 +7,18 @@ mod controllers;
 use config::db::set_up;
 use controllers::root_controller::index;
 
-#[launch]
-async fn rocket() -> _ {
+#[rocket::main]
+async fn main() -> Result<(), rocket::Error> {
     let db = match set_up().await {
         Ok(db) => db,
         Err(err) => panic!("{}", err),
     };
 
-    rocket::build().manage(db).mount("/", routes![index])
+    let _rocket = rocket::build()
+        .manage(db)
+        .mount("/", routes![index])
+        .launch()
+        .await?;
+
+    Ok(())
 }

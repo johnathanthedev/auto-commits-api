@@ -1,11 +1,22 @@
-FROM rust:1.67.0
+################################################################
+#                            build                             #
+################################################################
+FROM rust:1.67.0-slim-buster as build
 
-WORKDIR /auto-commits-api
+WORKDIR /app
 
-COPY . .
+COPY ./src ./src
+COPY ./Cargo.lock ./Cargo.lock
+COPY ./Cargo.toml ./Cargo.toml
 
-EXPOSE ${ROCKET_PORT}
+RUN cargo build
+RUN rm src/*.rs
 
-RUN cargo install cargo-watch
+################################################################
+#                            app                               #
+################################################################
+FROM rust:1.67.0-slim-buster
 
-CMD ["cargo", "watch", "-x", "run", "-w", "src"]
+COPY --from=build ./app/target/debug/auto-commits-api .
+
+CMD ["./auto-commits-api"]
