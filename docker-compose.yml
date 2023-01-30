@@ -3,13 +3,16 @@ version: '3.8'
 services:
   api:
     container_name: auto-commits-api-container
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
       - ${ROCKET_PORT}:${ROCKET_PORT}
     env_file:
       - .env
     volumes:
-      - api_build:/app/src/target/debug
+      - ./migration:/migration
+      - ./src/entities:/src/entities
     restart: always
     depends_on:
       - db

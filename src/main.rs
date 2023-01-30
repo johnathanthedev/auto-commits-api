@@ -5,6 +5,7 @@ mod config;
 mod controllers;
 
 use config::db::set_up;
+use controllers::accounts_controller::sign_up;
 use controllers::root_controller::index;
 
 #[rocket::main]
@@ -16,7 +17,7 @@ async fn main() -> Result<(), rocket::Error> {
 
     let _rocket = rocket::build()
         .manage(db)
-        .mount("/", routes![index])
+        .mount("/", routes![index, sign_up])
         .launch()
         .await?;
 
