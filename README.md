@@ -6,3 +6,12 @@ An API for Daily Commits Frontend.
 
 The purpose of this project is to have an ongoing service that will log commits daily to a designated repo.
 
+## Requirements
+
+- Docker
+
+## How to run locally
+
+You will need a .env file in the root of this project. Look at .env.example for reference.
+
+Clone this repo and run `docker-compose up`.
